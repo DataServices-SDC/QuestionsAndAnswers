@@ -1,0 +1,23 @@
+Create questions table:
+create table questions(id SERIAL PRIMARY KEY, product_id INT NOT NULL, question_body VARCHAR, date_written VARCHAR, asker_name VARCHAR, asker_email VARCHAR, reported INT, helpful INT);
+
+Create answers table:
+create table answers(id SERIAL PRIMARY KEY, question_id INT NOT NULL, body VARCHAR, date_written VARCHAR, answerer_name VARCHAR, answerer_email VARCHAR, reported INT, helpful INT, CONSTRAINT fk_questions  FOREIGN KEY(question_id) REFERENCES questions(id));
+
+Create answers photos table:
+create table answers_photos(id SERIAL PRIMARY KEY, answer_id INT NOT NULL, url VARCHAR, CONSTRAINT fk_answers FOREIGN KEY(answer_id) REFERENCES answers(id));
+
+
+ETL for each table from CSV files:
+
+COPY questions
+FROM '/Users/mtdupuie/hackReactor/sdc/questions.csv'
+DELIMITER ',' CSV HEADER;
+
+COPY answers
+FROM '/Users/mtdupuie/hackReactor/sdc/answers.csv'
+DELIMITER ',' CSV HEADER;
+
+COPY answers_photos
+FROM '/Users/mtdupuie/hackReactor/sdc/answers_photos.csv'
+DELIMITER ',' CSV HEADER;
