@@ -6,9 +6,22 @@ app.use(express.json());
 app.get(`/qa/:product_id/questions`, (req, res) => {
   db.getAllQuestions(req.params.product_id)
     .then((response) => {
+      const data = [];
+      response.map((question) => {
+        const newAnswers = {}
+        if (question.reported === 0) {
+          data.push(question)
+        }
+        if (question.answers) {
+          question.answers.forEach(answer => {
+            newAnswers[answer.id] = answer
+          })
+        }
+        question.answers = newAnswers
+      })
       res.send({
         "product_id": req.params.product_id,
-        "results": response
+        "results": data
       });
     })
     .catch((error) => {
@@ -20,11 +33,20 @@ app.get(`/qa/:product_id/questions`, (req, res) => {
 app.get('/qa/questions/:question_id/answers', (req, res) => {
   db.getAllAnswers(req.params.question_id)
     .then((response) => {
+      const data = [];
+      response.map((answer) => {
+        if (answer.photos === null) {
+          answer.photos = [];
+        }
+        if (answer.reported === 0) {
+          data.push(answer);
+        }
+      })
       res.send({
         "question": req.params.question_id,
         "page": 0,
         "count": 5,
-        "results": response
+        "results": data
       });
       })
     .catch((error) => {
@@ -54,7 +76,6 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
     .then((response) => {
       db.getLastIndex()
         .then((response) => {
-          console.log("here: ", response)
           return response
         })
         .then((response) => {
