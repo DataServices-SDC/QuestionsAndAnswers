@@ -33,3 +33,13 @@ DELIMITER ',' CSV HEADER;
 COPY answers_photos
 FROM '/home/ubuntu/data/answers_photos.csv'
 DELIMITER ',' CSV HEADER;
+
+
+
+creating indexs
+
+create index product_id on questions(product_id);
+
+create index question_id on answers(question_id);
+
+create index answer_id on answers_photos(answer_id);

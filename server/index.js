@@ -1,9 +1,20 @@
 const express = require('express');
 const moment = require('moment-timezone');
+const token = require('../config.js')
 const db = require('../db/queries.js')
 const app = express();
 
+console.log(token.loader);
+
 app.use(express.json());
+
+// app.get('/loaderio-e1eba073e86e4680ca87ce6129815043', (req, res) => {
+//   res.send('loaderio-e1eba073e86e4680ca87ce6129815043');
+// })
+
+app.get('/loaderio-b7d749c95ce60b3bb4baf56fecb62e66', (req, res) => {
+  res.send('loaderio-b7d749c95ce60b3bb4baf56fecb62e66');
+})
 
 app.get(`/qa/:product_id/questions`, (req, res) => {
   db.getAllQuestions(req.params.product_id)
@@ -64,6 +75,7 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
       res.sendStatus(500);
     })
 })
+
 
 app.post('/qa/:product_id/questions', (req, res) => {
   db.addQuestion(req.body, req.params.product_id)
