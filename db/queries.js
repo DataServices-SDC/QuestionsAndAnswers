@@ -4,8 +4,10 @@ var options = {
   promiseLib: promise
 };
 
+var awsURL = '3.144.206.175'
+
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://localhost:3000/sdc';
+var connectionString = `postgres://mitch:mtdupuie@3.144.206.175:5432/sdc`;
 var db = pgp(connectionString);
 
 module.exports = {
