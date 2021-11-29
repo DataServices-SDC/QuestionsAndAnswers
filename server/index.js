@@ -1,6 +1,8 @@
 const express = require('express');
+const moment = require('moment-timezone');
 const db = require('../db/queries.js')
 const app = express();
+
 app.use(express.json());
 
 app.get(`/qa/:product_id/questions`, (req, res) => {
@@ -9,11 +11,16 @@ app.get(`/qa/:product_id/questions`, (req, res) => {
       const data = [];
       response.map((question) => {
         const newAnswers = {}
+        question.question_date = moment(Number(question.question_date)).utc().format()
         if (question.reported === 0) {
           data.push(question)
         }
         if (question.answers) {
           question.answers.forEach(answer => {
+            if (answer.photos === null) {
+              answer.photos = [];
+            }
+            answer.date = moment(Number(answer.date)).utc().format()
             newAnswers[answer.id] = answer
           })
         }
@@ -35,6 +42,7 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
     .then((response) => {
       const data = [];
       response.map((answer) => {
+        answer.date = moment(Number(answer.date)).utc().format()
         if (answer.photos === null) {
           answer.photos = [];
         }

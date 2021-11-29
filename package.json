@@ -20,6 +20,8 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.34",
     "pg-promise": "^10.11.1"
   }
 }
