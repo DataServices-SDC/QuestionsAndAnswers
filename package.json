@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/DataServices-SDC/QuestionsAndAnswers#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "bluebird": "^3.7.2",
+    "express": "^4.17.1",
+    "pg-promise": "^10.11.1"
   }
 }
