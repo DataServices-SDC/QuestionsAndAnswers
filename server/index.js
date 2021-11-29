@@ -13,6 +13,7 @@ app.get(`/qa/:product_id/questions`, (req, res) => {
         const newAnswers = {}
         question.question_date = moment(Number(question.question_date)).utc().format()
         if (question.reported === 0) {
+          question.reported = false;
           data.push(question)
         }
         if (question.answers) {
@@ -47,6 +48,7 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
           answer.photos = [];
         }
         if (answer.reported === 0) {
+          delete answer.reported;
           data.push(answer);
         }
       })
