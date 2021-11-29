@@ -1,10 +1,10 @@
 const express = require('express');
 const moment = require('moment-timezone');
-const token = require('../config.js')
+// const token = require('../config.js')
 const db = require('../db/queries.js')
 const app = express();
 
-console.log(token.loader);
+// console.log(token.loader);
 
 app.use(express.json());
 
